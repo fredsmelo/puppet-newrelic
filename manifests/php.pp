@@ -70,6 +70,7 @@ define newrelic::php (
   $newrelic_daemon_proxy                                 = undef,
   $newrelic_daemon_collector_host                        = undef,
   $newrelic_daemon_auditlog                              = undef,
+  $newrelic_php_options                                  = {},
   ### Deprecated below
   $newrelic_php_conf_appname              = undef,
   $newrelic_php_conf_enabled              = undef,
@@ -111,6 +112,7 @@ define newrelic::php (
     before               => [ File['/etc/newrelic/newrelic.cfg'], Service[$newrelic_php_service] ],
     require              => Package[$newrelic_php_package],
     notify               => Service[$newrelic_php_service],
+    newrelic_php_options => $newrelic_php_options,
   }
 
   file { '/etc/newrelic/newrelic.cfg':
